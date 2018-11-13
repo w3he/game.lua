@@ -1,4 +1,4 @@
-Heap = {}
+local Heap = {}
 
 --- use an array to store a min heap
 -- 1>2,3>4,5;6,7
@@ -87,6 +87,17 @@ function Heap.merge(self, heap)
     self:push(v)
   end
 end
+
+function Heap.sort(vector)
+  local heap = Heap:new()
+  for i=1,#vector do
+    heap:push(vector[i])
+  end
+  for i=1,#vector do
+    vector[i] = heap:pop()
+  end
+end
+  
 
 
 return Heap
