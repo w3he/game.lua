@@ -1,5 +1,6 @@
-package.path = "./src/?.lua;"..package.path
+package.path = "./src/?.lua;./src/?/init.lua;"..package.path
 
+local sorter = require 'sorter'
 -- input vector
 local v = {}
 
@@ -11,7 +12,7 @@ describe("Unit test quick sort", function()
     end)
     
     it("with lomuto partition", function() 
-      local quick = require 'quick_sort_hoare'        
+      local quick = sorter.choose 'QuickHoare'        
       local vector = {unpack(v)}
       quick.sort(vector)
 
@@ -19,7 +20,7 @@ describe("Unit test quick sort", function()
     end)
   
     it("with lomuto partition", function() 
-      local quick = require 'quick_sort_lomuto'        
+      local quick = sorter.choose 'QuickLomuto'        
 
       quick.sort(v)
 
