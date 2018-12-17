@@ -47,14 +47,14 @@ local function check_next(maze, r, c, visited)
       return false
     end
   end
-  table.insert(visited, {r,c})
   return true
 end
 
 function Maze.move(maze, moves, path, visited)
-  local moved = false
+  
   for _,v in ipairs(moves) do
     local r,c = unpack(v)
+    table.insert(visited, {r,c})
     
     if (r == #maze and c == #maze[1]) then
       table.insert(path, {r,c})
@@ -75,15 +75,13 @@ function Maze.move(maze, moves, path, visited)
         table.insert(nextMoves, {r-1, c})
     end
     if (#nextMoves > 0) then
-      table.insert(path, {r, c})
-      moved = Maze.move(maze, nextMoves, path, visited)
+      table.insert(path, {r, c})     
+      if (Maze.move(maze, nextMoves, path, visited)) then return true end
     end
   end
-  if not moved then 
-    -- backtracking
-    table.remove(path)
-  end
-  return moved
+  -- not moved, so let's backtracking
+  table.remove(path)
+  return false
 end
 
 return Maze
